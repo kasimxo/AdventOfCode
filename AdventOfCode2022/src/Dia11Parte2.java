@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Dia11 {
+public class Dia11Parte2 {
 	
 	//En la lista de cada monito tenemos cada objeto con su worry level
 	public static	List<String> Monkey_0 = new ArrayList<String>(); 
@@ -38,7 +38,7 @@ public class Dia11 {
 		 * En este punto los monitos ya tienen todos los objetos cargados. Falta una función que vaya haciendo cada ronda
 		 */
 		//Con esto simulamos las 20 rondas
-		for (int ronda = 0; ronda<20; ronda++) {
+		for (int ronda = 0; ronda<10000; ronda++) {
 			
 			/*Primero hacemos la operación de cada mono
 			 *Para ello cogemos cada objeto del mono
@@ -61,6 +61,13 @@ public class Dia11 {
 						//Ahora que tenemos el valor antiguo, realizamos la operación.
 						int linea = 7*mono + 2;
 						String[] operacion = input.get(linea).split(" ");
+						
+						//This solves the problem with big numbers
+						//chech modular arithmetic
+						//This %number is the result of multiplying divisors.
+						old = old%9699690;
+						
+						
 						if (operacion[operacion.length-2].compareTo("+")==0) {
 							old += Integer.parseInt(operacion[operacion.length-1]);
 						} else {
@@ -72,9 +79,8 @@ public class Dia11 {
 							}
 						}
 						
-						//Es muy importante en esta operación redondear hacia abajo
-						old = Math.floorDiv(old, 3);
-						//listado.get(mono).set(0, Integer.toString(old));
+						
+						
 						
 						//Aquí realizamos la comprobación de turno y lanzamos el objeto
 						int lineaCheck = 7*mono + 3;
@@ -105,14 +111,13 @@ public class Dia11 {
 			System.out.println("Monkey " + i + " inspected items " + actividad[i] + " times");
 		}
 		Arrays.sort(actividad);
-		System.out.println("The level of monkey business is: " + actividad[6]*actividad[7]);
+		long val1 = actividad[6];
+		long val2 = actividad[7];
+		long solution = val1*val2;
+		System.out.println("The level of monkey business is: " + solution);
 		System.out.println();
 		
-		
-		
 	}
-	
-	
 	
 	/* 
 	 * Con este método leemos la lista y cargamos todos los objetos en los monitos

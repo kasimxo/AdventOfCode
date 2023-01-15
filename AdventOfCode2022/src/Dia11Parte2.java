@@ -67,7 +67,7 @@ public class Dia11Parte2 {
 						//This %number is the result of multiplying divisors.
 						old = old%9699690;
 						//cambio para git
-						
+						//prueba
 						if (operacion[operacion.length-2].compareTo("+")==0) {
 							old += Integer.parseInt(operacion[operacion.length-1]);
 						} else {

@@ -66,7 +66,7 @@ public class Dia11Parte2 {
 						//chech modular arithmetic
 						//This %number is the result of multiplying divisors.
 						old = old%9699690;
-						
+						//cambio para git
 						
 						if (operacion[operacion.length-2].compareTo("+")==0) {
 							old += Integer.parseInt(operacion[operacion.length-1]);

@@ -1,3 +1,0 @@
-/bin/
-# Added .txt in order to skip every input file. 
-*.txt

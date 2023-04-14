@@ -33,24 +33,22 @@ public class LineaD14 {
 		int prevY = this.linea.get(this.linea.size()-1).getY();
 		
 		if(prevY==y) {
-			System.out.println("linea horizontal");
 			if(prevX>x) {
-				for(int i = x; i<prevX; i++) {
+				for(int i = x; i<=prevX; i++) {
 					this.linea.add(new CoordD14(i,y));
 				}
 			} else {
-				for(int i = prevX; i<x; i++) {
+				for(int i = prevX; i<=x; i++) {
 					this.linea.add(new CoordD14(i,y));
 				}
 			}
 		} else {
-			System.out.println("linea vertical");
 			if(prevY>y) {
-				for(int i = y; i<prevY; i++) {
+				for(int i = y; i<=prevY; i++) {
 					this.linea.add(new CoordD14(x,i));
 				}
 			} else {
-				for(int i = prevY; i<y; i++) {
+				for(int i = prevY; i<=y; i++) {
 					this.linea.add(new CoordD14(x,i));
 				}
 			}

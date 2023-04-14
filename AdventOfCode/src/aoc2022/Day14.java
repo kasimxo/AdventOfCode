@@ -96,6 +96,8 @@ public class Day14 {
 		}
 		draw();
 		
+		System.err.println(maxHeight);
+		
 	}
 	
 	/**
@@ -176,21 +178,24 @@ public class Day14 {
 			grains.add(new Sand());
 		}
 		
-		if(grano.getY()>maxHeight) {
+		if(grano.getY()>=maxHeight) {
 			System.out.println("FALLEN INTO THE VOID");
 			playing = false;
 			System.err.println(grains.size()-1);
 		}
+		
 	}
 
 	private static void draw() {
-		for(int column = 0; column<=maxWidth-minWidth; column++) {
-			System.out.print(column + " ");
-			for(int row = 0; row<=maxHeight-minHeight; row++) {
-				System.out.print(check(row,column));
+		for(int row = 0; row<=maxHeight-minHeight; row++) {
+		
+			System.out.print(row + " ");
+			for(int column = 0; column<=maxWidth-minWidth; column++) {
+				System.out.print(check(column,row));
 			}
 			System.out.println();
 		}
+		
 		
 	}
 

@@ -26,13 +26,13 @@ public class Day14 {
 		
 		
 		String filePath = new File("").getAbsolutePath();
-		filePath += "\\input\\Day14.txt";
+		filePath += "\\AdventOfCode\\input\\Day14.txt";
 		Path file = Paths.get(filePath);
 		
 		try {
 			List<String> input = Files.readAllLines(file);
 			
-			//Creamos las líneas
+			//Creamos las lï¿½neas
 			for (String string : input) {
 				//Con esto separamos las coordenadas
 				String[] coords = string.split(" -> ");
@@ -67,10 +67,9 @@ public class Day14 {
 					} else if (minWidth>x) {
 						minWidth = x;
 					}
+
 				}
-				
 				lineas.add(linea);
-				
 				
 			}
 			
@@ -80,9 +79,6 @@ public class Day14 {
 		}
 		
 		
-		for (LineaD14 linea : lineas) {
-			System.out.println(linea);
-		}
 		draw();
 		
 	}
@@ -104,8 +100,9 @@ public class Day14 {
 			List<CoordD14> coordenadas = linea.getLinea();
 			
 			for (CoordD14 coord : coordenadas) {
-				
-				if(coord.getX()==column+minWidth && coord.getY()==column+minHeight) {
+				int x = column+minWidth;
+				int y = row + minHeight;
+				if(coord.getX()==x && coord.getY()==y) {
 					return '#';
 				}
 				

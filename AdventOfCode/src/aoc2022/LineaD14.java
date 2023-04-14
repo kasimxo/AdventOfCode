@@ -21,7 +21,42 @@ public class LineaD14 {
 	}
 	
 	public void addCoord(int x, int y) {
-		this.linea.add(new CoordD14(x,y));
+		if(this.linea.size()==0) {
+			this.linea.add(new CoordD14(x,y));
+		} else {
+			untilNewCoord(x, y);
+		}
+	}
+	
+	public void untilNewCoord(int x, int y) {
+		int prevX = this.linea.get(this.linea.size()-1).getX();
+		int prevY = this.linea.get(this.linea.size()-1).getY();
+		
+		if(prevY==y) {
+			System.out.println("linea horizontal");
+			if(prevX>x) {
+				for(int i = x; i<prevX; i++) {
+					this.linea.add(new CoordD14(i,y));
+				}
+			} else {
+				for(int i = prevX; i<x; i++) {
+					this.linea.add(new CoordD14(i,y));
+				}
+			}
+		} else {
+			System.out.println("linea vertical");
+			if(prevY>y) {
+				for(int i = y; i<prevY; i++) {
+					this.linea.add(new CoordD14(x,i));
+				}
+			} else {
+				for(int i = prevY; i<y; i++) {
+					this.linea.add(new CoordD14(x,i));
+				}
+			}
+		}
+		
+		
 	}
 
 	@Override

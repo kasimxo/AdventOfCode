@@ -13,6 +13,7 @@ public class Day14 {
 	
 	public static List<LineaD14> lineas = new ArrayList<LineaD14>();
 	
+	public static boolean playing = true;
 	public static int maxHeight=-1;
 	public static int minHeight=0;
 	public static int maxWidth=-1;
@@ -26,7 +27,7 @@ public class Day14 {
 		
 		
 		String filePath = new File("").getAbsolutePath();
-		filePath += "\\input\\Day14T.txt";
+		filePath += "\\input\\Day14.txt";
 		Path file = Paths.get(filePath);
 		
 		try {
@@ -83,16 +84,18 @@ public class Day14 {
 		
 		grains.add(new Sand());
 		
-		for (int i = 0; i<100; i++) {
+		while(playing) {
 			actualizarPos();
-			draw();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			draw();
+//			try {
+//				Thread.sleep(100);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
+		draw();
+		
 	}
 	
 	/**
@@ -115,7 +118,7 @@ public class Day14 {
 			
 			for (CoordD14 coord : coordenadas) {
 				if(coord.getX()==x && coord.getY()==y) {
-					System.err.println("COLISION");
+					//System.err.println("COLISION");
 					abajo = false;
 				}
 				
@@ -126,7 +129,7 @@ public class Day14 {
 			
 			for (CoordD14 coord : coordenadas) {
 				if(coord.getX()==x-1 && coord.getY()==y) {
-					System.err.println("COLISION IZQUIERDA");
+					//System.err.println("COLISION IZQUIERDA");
 					abajoIzquierda = false;
 				}
 				
@@ -137,7 +140,7 @@ public class Day14 {
 			
 			for (CoordD14 coord : coordenadas) {
 				if(coord.getX()==x+1 && coord.getY()==y) {
-					System.err.println("COLISION derecha");
+					//System.err.println("COLISION derecha");
 					abajoDerecha = false;
 				}
 				
@@ -146,15 +149,15 @@ public class Day14 {
 		//Ahora toca comparar con otros granos de arena
 		for (Sand granoCheck : grains) {
 			if(granoCheck.getX()==x && granoCheck.getY()==y) {
-				System.err.println("COLISION GRANO");
+				//System.err.println("COLISION GRANO");
 				abajo = false;
 			}
 			if(granoCheck.getX()==x-1 && granoCheck.getY()==y) {
-				System.err.println("COLISION GRANO IZQUIERDA");
+				//System.err.println("COLISION GRANO IZQUIERDA");
 				abajoIzquierda = false;
 			}
 			if(granoCheck.getX()==x+1 && granoCheck.getY()==y) {
-				System.err.println("COLISION GRANO DERECHA");
+				//System.err.println("COLISION GRANO DERECHA");
 				abajoDerecha = false;
 			}
 		}
@@ -171,6 +174,12 @@ public class Day14 {
 			grano.setY(y);
 		} else {
 			grains.add(new Sand());
+		}
+		
+		if(grano.getY()>maxHeight) {
+			System.out.println("FALLEN INTO THE VOID");
+			playing = false;
+			System.err.println(grains.size()-1);
 		}
 	}
 

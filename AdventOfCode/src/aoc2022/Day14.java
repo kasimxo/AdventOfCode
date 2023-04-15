@@ -26,7 +26,7 @@ public class Day14 {
 		
 		
 		String filePath = new File("").getAbsolutePath();
-		filePath += "\\AdventOfCode\\input\\Day14.txt";
+		filePath += "\\AdventOfCode\\input\\Day14T.txt";
 		Path file = Paths.get(filePath);
 		
 		try {
@@ -78,7 +78,7 @@ public class Day14 {
 			e.printStackTrace();
 		}
 		
-		
+		System.out.println(minWidth + "  " + maxWidth + "  " + maxHeight);
 		draw();
 		
 	}

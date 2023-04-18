@@ -11,6 +11,8 @@ import java.util.List;
 
 public class Day14P2 {
 	
+	//Even though this code does not provide the correct answer, in my case at least it failed by the same amount in Part 1 and 2 (Answer was -45 from what this gives)
+	
 	public static List<LineaD14> lineas = new ArrayList<LineaD14>();
 	
 	public static boolean playing = true;
@@ -33,7 +35,7 @@ public class Day14P2 {
 		try {
 			List<String> input = Files.readAllLines(file);
 			
-			//Creamos las lï¿½neas
+			//Creamos las lÃ¯Â¿Â½neas
 			for (String string : input) {
 				//Con esto separamos las coordenadas
 				String[] coords = string.split(" -> ");
@@ -101,7 +103,7 @@ public class Day14P2 {
 	}
 	
 	/**
-	 * Aquí actualizamos la posición del último grano de arena añadido.
+	 * AquÃ­ actualizamos la posiciÃ³n del Ãºltimo grano de arena aÃ±adido.
 	 * Si no se puede mover mas, hacemos spawn de uno nuevo.
 	 * Si se cae fuera, restamos uno a la cantidad de granos.
 	 */
@@ -111,13 +113,13 @@ public class Day14P2 {
 		boolean abajo = true;
 		boolean abajoDerecha = true;
 		int x = grano.getX() ;
-		//Añadimos uno a la altura para comprobar justo debajo
+		//AÃ±adimos uno a la altura para comprobar justo debajo
 		int y = grano.getY();
 		
 		
 		
 		
-		//Aquí comparamos con los muros
+		//AquÃ­ comparamos con los muros
 		for (LineaD14 linea : lineas) {
 			List<CoordD14> coordenadas = linea.getLinea();
 			
@@ -194,7 +196,7 @@ public class Day14P2 {
 		if(grano.getY()==0 && !abajo && !abajoIzquierda && !abajoDerecha) {
 			System.out.println("Cant move");
 			playing = false;
-			System.err.println("Tamaño " + (grains.size()-1));
+			System.err.println("TamaÃ±o " + (grains.size()-1));
 		}
 	}
 

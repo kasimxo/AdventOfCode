@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Day14 {
+public class Day14P2 {
 	
 	public static List<LineaD14> lineas = new ArrayList<LineaD14>();
 	
@@ -67,13 +67,13 @@ public class Day14 {
 				lineas.add(linea);
 				
 			}
-			
+			maxHeight+=2;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
+		System.out.println("altura max: " + maxHeight);
 		draw();
 		try {
 			Thread.sleep(1000);
@@ -112,14 +112,17 @@ public class Day14 {
 		boolean abajoDerecha = true;
 		int x = grano.getX() ;
 		//Añadimos uno a la altura para comprobar justo debajo
-		int y = grano.getY() +1;
+		int y = grano.getY();
+		
+		
+		
 		
 		//Aquí comparamos con los muros
 		for (LineaD14 linea : lineas) {
 			List<CoordD14> coordenadas = linea.getLinea();
 			
 			for (CoordD14 coord : coordenadas) {
-				if(coord.getX()==x && coord.getY()==y) {
+				if(coord.getX()==x && coord.getY()==y+1) {
 					//System.err.println("COLISION");
 					abajo = false;
 				}
@@ -130,7 +133,7 @@ public class Day14 {
 			List<CoordD14> coordenadas = linea.getLinea();
 			
 			for (CoordD14 coord : coordenadas) {
-				if(coord.getX()==x-1 && coord.getY()==y) {
+				if(coord.getX()==x-1 && coord.getY()==y+1) {
 					//System.err.println("COLISION IZQUIERDA");
 					abajoIzquierda = false;
 				}
@@ -141,7 +144,7 @@ public class Day14 {
 			List<CoordD14> coordenadas = linea.getLinea();
 			
 			for (CoordD14 coord : coordenadas) {
-				if(coord.getX()==x+1 && coord.getY()==y) {
+				if(coord.getX()==x+1 && coord.getY()==y+1) {
 					//System.err.println("COLISION derecha");
 					abajoDerecha = false;
 				}
@@ -150,46 +153,55 @@ public class Day14 {
 		}
 		//Ahora toca comparar con otros granos de arena
 		for (Sand granoCheck : grains) {
-			if(granoCheck.getX()==x && granoCheck.getY()==y) {
+			if(granoCheck.getX()==x && granoCheck.getY()==y+1) {
 				//System.err.println("COLISION GRANO");
 				abajo = false;
 			}
-			if(granoCheck.getX()==x-1 && granoCheck.getY()==y) {
+			if(granoCheck.getX()==x-1 && granoCheck.getY()==y+1) {
 				//System.err.println("COLISION GRANO IZQUIERDA");
 				abajoIzquierda = false;
 			}
-			if(granoCheck.getX()==x+1 && granoCheck.getY()==y) {
+			if(granoCheck.getX()==x+1 && granoCheck.getY()==y+1) {
 				//System.err.println("COLISION GRANO DERECHA");
 				abajoDerecha = false;
 			}
 		}
-		
+		if(grano.getY()==maxHeight-1) {
+			abajo = false;
+			abajoIzquierda = false;
+			abajoDerecha = false;
+		}
 		
 		
 		if(abajo) {
-			grano.setY(y);
+			grano.setY(y+1);
 		} else if(abajoIzquierda) {
 			grano.setX(x-1);
-			grano.setY(y);
+			grano.setY(y+1);
 		} else if(abajoDerecha) {
 			grano.setX(x+1);
-			grano.setY(y);
+			grano.setY(y+1);
 		} else {
 			grains.add(new Sand());
 		}
 		
-		if(grano.getY()>=maxHeight) {
-			System.out.println("FALLEN INTO THE VOID");
-			playing = false;
-			System.err.println(grains.size()-1);
+		if(grano.getX()<minWidth) {
+			minWidth-=1;
+		} else if (grano.getX()>maxWidth) {
+			maxWidth+=1;
 		}
 		
+		if(grano.getY()==0 && !abajo && !abajoIzquierda && !abajoDerecha) {
+			System.out.println("Cant move");
+			playing = false;
+			System.err.println("Tamaño " + (grains.size()-1));
+		}
 	}
 
 	private static void draw() {
 		for(int row = 0; row<=maxHeight-minHeight; row++) {
 		
-			System.out.print(row + " ");
+			System.out.printf("%2d ", row);
 			for(int column = 0; column<=maxWidth-minWidth; column++) {
 				System.out.print(check(column,row));
 			}
@@ -207,7 +219,7 @@ public class Day14 {
 			for (CoordD14 coord : coordenadas) {
 				int x = column+minWidth;
 				int y = row + minHeight;
-				if(coord.getX()==x && coord.getY()==y) {
+				if(y==maxHeight || coord.getX()==x && coord.getY()==y ) {
 					return '#';
 				}
 				

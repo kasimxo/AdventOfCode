@@ -2,29 +2,30 @@ package aoc2022;
 
 public class Sensor {
 
-	private int x;
-	private int y;
+	private long x;
+	private long y;
+	private long maxDist;
 	private Beacon closest;
 	
-	public Sensor(int x, int y, Beacon beacon) {
+	public Sensor(long x, long y, Beacon beacon) {
 		this.x = x;
 		this.y = y;
 		this.closest = beacon;
 	}
 
-	public int getX() {
+	public long getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(long x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public long getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(long y) {
 		this.y = y;
 	}
 
@@ -38,7 +39,15 @@ public class Sensor {
 
 	@Override
 	public String toString() {
-		return "Sensor x= " + x + " y= " + y + "\nClosest Beacon= " + closest;
+		return "Sensor x= " + x + " y= " + y + "\nClosest Beacon= " + closest + "\nDistancia máxima: " + maxDist;
+	}
+
+	public long getMaxDist() {
+		return maxDist;
+	}
+
+	public void setMaxDist(long maxDist) {
+		this.maxDist = maxDist;
 	}
 	
 	

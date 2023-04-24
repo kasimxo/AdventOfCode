@@ -7,10 +7,10 @@ import utilitiesAOC.Input;
 
 public class Day15 {
 	
-	public static int minWidth=-1;
-	public static int minHeight=-1;
-	public static int maxWidth=-1;
-	public static int maxHeight=-1;
+	public static long minWidth=-1;
+	public static long minHeight=-1;
+	public static long maxWidth=-1;
+	public static long maxHeight=-1;
 	public static boolean primero=true;
 	public static List<Sensor> sensores = new ArrayList<Sensor>();
 	public static List<Beacon> beacons = new ArrayList<Beacon>();
@@ -18,7 +18,7 @@ public class Day15 {
 
 	public static void main(String[] args) {
 		
-		List<String> input = Input.listaString(2022, 15, true);
+		List<String> input = Input.listaString(2022, 15, false);
 		
 		
 		
@@ -34,44 +34,47 @@ public class Day15 {
 			String beaconX = split[8].split("=")[1];
 			beaconX = beaconX.substring(0, beaconX.length()-1);
 			String beaconY = split[9].split("=")[1];
-			Beacon beacon = new Beacon(Integer.parseInt(beaconX), Integer.parseInt(beaconY));
-			Sensor sensor = new Sensor(Integer.parseInt(sensorX), Integer.parseInt(sensorY), beacon);
+			Beacon beacon = new Beacon(Long.parseLong(beaconX), Long.parseLong(beaconY));
+			Sensor sensor = new Sensor(Long.parseLong(sensorX), Long.parseLong(sensorY), beacon);
 			
 			sensores.add(sensor);
 			beacons.add(beacon);
 			
+			long distancia = Math.abs(sensor.getX()-beacon.getX()) + Math.abs(sensor.getY()-beacon.getY());
+			sensor.setMaxDist(distancia);
+			
 			//Here we check all values to see if we need to increase the print area
 			if(primero) {
-				minWidth=Integer.parseInt(sensorX);
-				maxWidth=Integer.parseInt(sensorX);
-				minHeight=Integer.parseInt(sensorY);
-				maxHeight=Integer.parseInt(sensorY);
+				minWidth=Long.parseLong(sensorX);
+				maxWidth=Long.parseLong(sensorX);
+				minHeight=Long.parseLong(sensorY);
+				maxHeight=Long.parseLong(sensorY);
 				primero=false;
 			}
-			if(minWidth>Integer.parseInt(sensorX)) {
-				minWidth=Integer.parseInt(sensorX);
+			if(minWidth>Long.parseLong(sensorX)) {
+				minWidth=Long.parseLong(sensorX);
 			}
-			if(minWidth>Integer.parseInt(beaconX)) {
-				minWidth=Integer.parseInt(beaconX);
+			if(minWidth>Long.parseLong(beaconX)) {
+				minWidth=Long.parseLong(beaconX);
 			}
-			if(maxWidth<Integer.parseInt(sensorX)) {
-				maxWidth=Integer.parseInt(sensorX);
+			if(maxWidth<Long.parseLong(sensorX)) {
+				maxWidth=Long.parseLong(sensorX);
 			}
-			if(maxWidth<Integer.parseInt(beaconX)) {
-				maxWidth=Integer.parseInt(beaconX);
+			if(maxWidth<Long.parseLong(beaconX)) {
+				maxWidth=Long.parseLong(beaconX);
 			}
 			//Here we check height limit
-			if(minHeight>Integer.parseInt(sensorY)) {
-				minHeight=Integer.parseInt(sensorY);
+			if(minHeight>Long.parseLong(sensorY)) {
+				minHeight=Long.parseLong(sensorY);
 			}
-			if(minHeight>Integer.parseInt(beaconY)) {
-				minHeight=Integer.parseInt(beaconY);
+			if(minHeight>Long.parseLong(beaconY)) {
+				minHeight=Long.parseLong(beaconY);
 			}
-			if(maxHeight<Integer.parseInt(sensorY)) {
-				maxHeight=Integer.parseInt(sensorY);
+			if(maxHeight<Long.parseLong(sensorY)) {
+				maxHeight=Long.parseLong(sensorY);
 			}
-			if(maxHeight<Integer.parseInt(beaconY)) {
-				maxHeight=Integer.parseInt(beaconY);
+			if(maxHeight<Long.parseLong(beaconY)) {
+				maxHeight=Long.parseLong(beaconY);
 			}
 			
 			
@@ -82,21 +85,63 @@ public class Day15 {
 		System.out.println("Ancho " + minWidth + " x " + maxWidth);
 		System.out.println("Alto " + minHeight + " x " + maxHeight);
 
-		draw();
+		//System.exit(0);
 		
+		//draw();
+		fixDimensions();
+		//draw();
+		System.out.println("Row 10" + " has " + (sol(10)) + " positions where no beacon is posible");
+		System.out.println("Row 2000000" + " has " + (sol(2000000)) + " positions where no beacon is posible");
+
+		
+	}
+	/**
+	 * Here we fix dimensions (Width in particular) Why?
+	 * If we didnt do this, the minimun and maximum width would be the position of the furthest 
+	 * sensor/beacon.
+	 * That is not correct.
+	 */
+	private static void fixDimensions() {
+		for (Sensor sensor : sensores) {
+			long x = sensor.getX();
+			long y = sensor.getY();
+			long dist = sensor.getMaxDist();
+			if(x+dist>maxWidth) {
+				maxWidth=x+dist;
+			} else if (x-dist<minWidth) {
+				minWidth=x-dist;
+			}
+		}
+	}
+
+	/**
+	 * Here we check a specific row
+	 * @param i
+	 */
+	private static long sol(long row) {
+		long solution = 0;
+		long maxDistance = maxWidth + Math.abs(minWidth);
+		for(long column = minWidth; column<=maxWidth; column++) {
+			if(check(column, row)=='.') {
+				solution++;
+			}
+		}
+		
+		return maxDistance-solution;
 	}
 
 	/**
 	 * Here we draw the map 
 	 */
 	private static void draw() {
-		for(int row = minHeight; row<=maxHeight; row++) {
+		for(long row = minHeight; row<=maxHeight; row++) {
 			System.out.printf("%2s ",row);
-			for(int column = minWidth; column<=maxWidth; column++) {
+			for(long column = minWidth; column<=maxWidth; column++) {
 				char pos = check(column, row);
 				System.out.print(pos);
 			}
-			System.out.println();
+			long solRow = sol(row);
+			System.out.println(" " + solRow);
 		}
 	}
 
@@ -106,7 +151,7 @@ public class Day15 {
 	 * @param column
 	 * @return
 	 */
-	private static char check(int column, int row) {
+	private static char check(long column, long row) {
 		for(Sensor sensor : sensores) {
 			if(sensor.getX()==column && sensor.getY()==row) {
 				return 'S';
@@ -118,6 +163,15 @@ public class Day15 {
 				return 'B';
 			}
 		}
+		
+		for(Sensor sensor : sensores) {
+			long distX = Math.abs(sensor.getX()-column);
+			long distY = Math.abs(sensor.getY()-row);
+			if(sensor.getMaxDist()>=distX+distY) {
+				return '#';
+			} 
+		}
+		
 		return '.';
 	}
 

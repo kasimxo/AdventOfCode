@@ -16,7 +16,7 @@ public class Input {
 	 */
 	public static List<String> listaString(String year,String day) {
 		List<String> input = new ArrayList<String>();
-		String filePath = new File("").getAbsolutePath()+"\\AdventOfCode\\input\\" + year+ "\\" + day + "T.txt";
+		String filePath = new File("").getAbsolutePath()+"\\input\\" + year+ "\\" + day + ".txt";
 		Path path = Paths.get(filePath);
 		try {
 			input = Files.readAllLines(path);

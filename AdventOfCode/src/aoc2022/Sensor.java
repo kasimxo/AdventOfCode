@@ -38,7 +38,7 @@ public class Sensor {
 
 	@Override
 	public String toString() {
-		return "Sensor x= " + x + " y= " + y;
+		return "Sensor x= " + x + " y= " + y + "\nClosest Beacon= " + closest;
 	}
 	
 	

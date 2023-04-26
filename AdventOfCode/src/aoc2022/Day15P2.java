@@ -21,6 +21,9 @@ public class Day15P2 {
 
 	public static void main(String[] args) {
 		
+		
+		
+		
 		List<String> input = Input.listaString(2022, 15, true);
 		
 		

@@ -9,6 +9,19 @@ import java.util.List;
 public class Input {
 	
 	/**
+	 * This method checks if the operative system is Linux or windows.
+	 * This is made to change relative routes to work on both systems.
+	 * If, for some reason, your system "os name" property is not Linux even when you are using a Linux distro, this will not work.
+	 * @return -> <b>true</b> if the system is <b>Linux</b> based.
+	 */
+	public static boolean checkLinux() {
+		if(System.getProperty("os.name").compareTo("Linux")==0) {
+			return true;
+		} else
+			return false;
+	}
+	
+	/**
 	 * This class reads the input file and returns a list were every element is one line of the input file.
 	 * @param year -> The year of the AOC you are coding as a string ie: "2021", "2022"... It's important to keep every file on Its corresponding folder.
 	 * @param day -> The day of the AOC challenge as a string  ie: "1", "2", "3"...  
@@ -16,7 +29,15 @@ public class Input {
 	 */
 	public static List<String> listaString(String year,String day) {
 		List<String> input = new ArrayList<String>();
-		String filePath = new File("").getAbsolutePath()+"\\input\\" + year+ "\\" + day + ".txt";
+		String filePath;
+		if(checkLinux()) {
+			filePath = new File("").getAbsolutePath()+"/input/" + year+ "/" + day + ".txt";
+		} else {
+			filePath = new File("").getAbsolutePath()+"\\input\\" + year+ "\\" + day + ".txt";
+		}
+			
+	
+		
 		Path path = Paths.get(filePath);
 		try {
 			input = Files.readAllLines(path);
@@ -36,7 +57,12 @@ public class Input {
 		
 		if(test) {
 			List<String> input = new ArrayList<String>();
-			String filePath = new File("").getAbsolutePath()+"\\input\\" + year+ "\\" + day + "T.txt";
+			String filePath;
+			if(checkLinux()) {
+				filePath = new File("").getAbsolutePath()+"/input/" + year+ "/" + day + ".txt";
+			} else {
+				filePath = new File("").getAbsolutePath()+"\\input\\" + year+ "\\" + day + ".txt";
+			}
 			Path path = Paths.get(filePath);
 			try {
 				input = Files.readAllLines(path);

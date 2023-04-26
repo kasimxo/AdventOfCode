@@ -34,7 +34,7 @@ public class LineaD14 {
 		
 		if(prevY==y) {
 			if(prevX>x) {
-				for(int i = x; i<=prevX; i++) {
+				for(int i = prevX; i>=x; i--) {
 					this.linea.add(new CoordD14(i,y));
 				}
 			} else {
@@ -44,7 +44,7 @@ public class LineaD14 {
 			}
 		} else {
 			if(prevY>y) {
-				for(int i = y; i<=prevY; i++) {
+				for(int i = prevY; i>=y; i--) {
 					this.linea.add(new CoordD14(x,i));
 				}
 			} else {

@@ -59,9 +59,9 @@ public class Input {
 			List<String> input = new ArrayList<String>();
 			String filePath;
 			if(checkLinux()) {
-				filePath = new File("").getAbsolutePath()+"/input/" + year+ "/" + day + ".txt";
+				filePath = new File("").getAbsolutePath()+"/input/" + year+ "/" + day + "T.txt";
 			} else {
-				filePath = new File("").getAbsolutePath()+"\\input\\" + year+ "\\" + day + ".txt";
+				filePath = new File("").getAbsolutePath()+"\\input\\" + year+ "\\" + day + "T.txt";
 			}
 			Path path = Paths.get(filePath);
 			try {

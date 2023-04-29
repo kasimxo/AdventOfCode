@@ -48,9 +48,10 @@ public class Input {
 	}
 	
 	/**
-	 * This class reads the <b>TEST</b> input file and returns a list were every element is one line of the input file.
+	 * This class reads the <b>TEST</b> input file if chosen and returns a list were every element is one line of the input file.
 	 * @param year -> The year of the AOC you are coding as a string ie: "2021", "2022"... It's important to keep every file on Its corresponding folder.
 	 * @param day -> The day of the AOC challenge as a string  ie: "1", "2", "3"...  
+	 * @param test -> Boolean <b>true</b> if you want to read the test file, false for reading the normal file.
 	 * @return A list of Strings where every String is a full line of the input file.
 	 */
 	public static List<String> listaStringTest(String year,String day, boolean test) {
@@ -59,9 +60,9 @@ public class Input {
 			List<String> input = new ArrayList<String>();
 			String filePath;
 			if(checkLinux()) {
-				filePath = new File("").getAbsolutePath()+"/input/" + year+ "/" + day + ".txt";
+				filePath = new File("").getAbsolutePath()+"/input/" + year+ "/" + day + "T.txt";
 			} else {
-				filePath = new File("").getAbsolutePath()+"\\input\\" + year+ "\\" + day + ".txt";
+				filePath = new File("").getAbsolutePath()+"\\input\\" + year+ "\\" + day + "T.txt";
 			}
 			Path path = Paths.get(filePath);
 			try {
@@ -76,9 +77,10 @@ public class Input {
 	}
 	
 	/**
-	 * This class reads the input file and returns a list were every element is one line of the input file.
-	 * @param year -> The year of the AOC you are coding as an int ie: 2021, 2022... It's important to keep every file on Its corresponding folder.
-	 * @param day -> The day of the AOC challenge as an int ie: 1, 2, 3...  
+	 * This class reads the <b>TEST</b> input file if chosen and returns a list were every element is one line of the input file.
+	 * @param year -> The year of the AOC you are coding as a string ie: "2021", "2022"... It's important to keep every file on Its corresponding folder.
+	 * @param day -> The day of the AOC challenge as a string  ie: "1", "2", "3"...  
+	 * @param test -> Boolean <b>true</b> if you want to read the test file, false for reading the normal file.
 	 * @return A list of Strings where every String is a full line of the input file.
 	 */
 	public static List<String> listaString(int year, int day) {

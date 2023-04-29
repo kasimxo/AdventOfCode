@@ -23,7 +23,6 @@ public class Day15P2 {
 		
 		
 		
-		
 		List<String> input = Input.listaString(2022, 15, true);
 		
 		

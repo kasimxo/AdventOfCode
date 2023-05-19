@@ -14,6 +14,7 @@ public class Day15P2 {
 	public static long maxWidth=-1;
 	public static long maxHeight=-1;
 	public static long solved = 0;
+	public static String solution = "";
 	public static boolean primero=true;
 	public static List<SensorP2> sensores = new ArrayList<SensorP2>();
 	public static List<Beacon> beacons = new ArrayList<Beacon>();
@@ -23,7 +24,7 @@ public class Day15P2 {
 		
 		
 		
-		List<String> input = Input.listaString(2022, 15, true);
+		List<String> input = Input.listaString(2022, 15, false);
 		
 		
 		
@@ -103,8 +104,8 @@ public class Day15P2 {
 		System.out.println("Alto " + minHeight + " x " + maxHeight);
 		System.out.println("Row 10" + " has " + (sol(10)) + " positions where no beacon is posible");
 		System.out.println("Row 2000000" + " has " + (sol(2000000)) + " positions where no beacon is posible");
-
-		System.err.println("Tuning frequency: " + solved);
+		System.out.println("La solución está en: "+solution);
+		System.out.println("Tuning frequency: " + solved);
 	}
 	
 	private static void intersecciones() {
@@ -192,20 +193,20 @@ public class Day15P2 {
 		if(minHeight<0) {
 			minHeight=0;
 		}
-		
-		if(maxWidth>20) {
-			maxWidth=20;
-		}
-		if(maxHeight>20) {
-			maxHeight=20;
-		}
-		
-//		if(maxWidth>4000000) {
-//			maxWidth=4000000;
+//		
+//		if(maxWidth>20) {
+//			maxWidth=20;
 //		}
-//		if(maxHeight>4000000) {
-//			maxHeight=4000000;
+//		if(maxHeight>20) {
+//			maxHeight=20;
 //		}
+		
+		if(maxWidth>4000000) {
+			maxWidth=4000000;
+		}
+		if(maxHeight>4000000) {
+			maxHeight=4000000;
+		}
 	}
 
 	/**
@@ -261,12 +262,14 @@ public class Day15P2 {
 		for(SensorP2 sensor : sensores) {
 			long distX = Math.abs(sensor.getX()-column);
 			long distY = Math.abs(sensor.getY()-row);
-			if(sensor.getMaxDist()>=distX+distY) {
-				return '#';
-			} 
+			if(sensor.getMaxDist()+1>distX+distY) {
+				
+				
+				return '.';
+			}
 		}
-
-		return '.';
+		solution+=" columna "+column+" fila "+row+" tunning "+((column*400000)+row);
+		return '#';
 	}
 
 }

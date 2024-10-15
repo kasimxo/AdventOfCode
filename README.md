@@ -3,7 +3,7 @@
 Progress:<br/>
 ![](https://img.shields.io/badge/2022%20⭐-27-yellow)
 
-![](https://img.shields.io/badge/2015%20⭐-24-yellow)
+![](https://img.shields.io/badge/2015%20⭐-32-yellow)
 
 <hr/>
 

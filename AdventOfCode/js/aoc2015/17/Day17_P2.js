@@ -12,6 +12,9 @@ objetivo = 25
 */
 var resultado = 0
 
+var exitosas = {}
+// número de recipientes: contador
+
 // Para n elementos (n = texto.length)
 // 0000000 -> n = cantidad de 0
 // 0100101 -> Ponemos 1 en los elementos combinados
@@ -40,6 +43,11 @@ console.log(mask)
 console.assert(resultado === 4)
 console.log('Resultado ', resultado)
 
+var menor = Infinity
+
+Object.keys(exitosas).forEach((key) => { menor = Math.min(menor, key) })
+
+console.log('Menor número recipiente: ', menor, '\nVariaciones: ', exitosas[menor])
 
 //Le pasamo la máscara como texto y vemos si hemos hecho todas las combinaciones
 function comprobarCalculando(mascara) {
@@ -49,13 +57,21 @@ function comprobarCalculando(mascara) {
 //Compreba si la combinación suma al objetivo
 function validarMascara(mascara) {
     var total = 0
+    var numRecipientes = 0
     for (let i = 0; i < mascara.length; i++) {
         if (mascara[i].localeCompare('1') === 0) {
             total += Number.parseInt(texto[i])
+            numRecipientes++
         }
     }
     if (total === objetivo) {
         resultado++
+
+        if (Object.hasOwn(exitosas, numRecipientes)) {
+            exitosas[numRecipientes] += 1
+        } else {
+            exitosas[numRecipientes] = 1
+        }
     }
 }
 
@@ -96,6 +112,5 @@ function avanzarMascara(mascara) {
             }
         }
     }
-    //console.log('Hemos avanzado máscara ', mascara)
     return mascara
 }

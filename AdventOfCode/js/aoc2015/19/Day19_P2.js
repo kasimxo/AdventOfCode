@@ -4,9 +4,13 @@ var texto = readInput().split('\r\n')
 /*
 texto = [
     'H => OO',
-    'H2O'
+    'HOHOHO'
 ]
-*/
+    */
+
+//texto = ['ARnBRnCYDArYERnFYGArAr']
+
+
 
 var reemplazamientos = {}
 var inicial = ''
@@ -29,8 +33,38 @@ texto.forEach((linea) => {
     }
 })
 
-console.log(reemplazamientos)
+// count(tokens) - count("(" or ")") - 2*count(",") - 1
 
+//número de tokens
+var tokens = 0
+var rn = 0
+var comas = 0
+
+for (let i = 0; i < inicial.length; i++) {
+    if (inicial[i].toUpperCase().localeCompare(inicial[i]) === 0) {
+
+        //es una mayúscula
+        if (i < inicial.length - 1 && inicial[i].localeCompare('R') === 0 && inicial[i + 1].localeCompare('n') === 0) {
+            rn++
+            tokens--
+        } else if (i < inicial.length - 1 && inicial[i].localeCompare('A') === 0 && inicial[i + 1].localeCompare('r') === 0) {
+            rn++
+            tokens--
+        } else if (inicial[i].localeCompare('Y') === 0) {
+            comas++
+            tokens--
+            tokens--
+        }
+        tokens++
+    }
+}
+tokens--
+// count(tokens) - count("(" or ")") - 2*count(",") - 1
+//var resultado = tokens - rn - 2 * comas - 1
+console.log(tokens)
+//console.log('Solucion: ', resultado)
+
+/*
 Object.keys(reemplazamientos).forEach((key) => {
     console.log('Key ', key)
     var lastIndex = -1
@@ -51,7 +85,8 @@ Object.keys(reemplazamientos).forEach((key) => {
         } while (lastIndex >= 0)
     })
 })
+*/
 
 //console.log(distintas)
-console.log('Solucion', distintas.length)
+//console.log('Solucion', inicial.length)
 

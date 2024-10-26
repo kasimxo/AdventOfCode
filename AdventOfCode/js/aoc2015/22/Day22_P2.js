@@ -98,6 +98,14 @@ while (partidas.length > 0) {
 
 function avanzarTurnoPartida(partida) {
     //console.log('Avanzar turno:', partida.prota, partida.jefe, partida.activos)
+
+    partida.prota.health--
+    if (partida.prota.health <= 0) {
+        return
+    }
+
+
+
     //calcular los efectos
     partida = aplicarEfectos({ prota: partida.prota, jefe: partida.jefe, activos: partida.activos })
     //console.log(partida.prota.mana)

@@ -1,64 +1,7 @@
 const { readLines } = require('./input')
 
-let text = [
-    '##########',
-    '#..O..O.O#',
-    '#......O.#',
-    '#.OO..O.O#',
-    '#..O@..O.#',
-    '#O#..O...#',
-    '#O..O..O.#',
-    '#.OO.O.OO#',
-    '#....O...#',
-    '##########',
-    '',
-    '<vv>^<v^>v>^vv^v>v<>v^v<v<^vv<<<^><<><>>v<vvv<>^v^>^<<<><<v<<<v^vv^v>^',
-    'vvv<<^>^v^^><<>>><>^<<><^vv^^<>vvv<>><^^v>^>vv<>v<<<<v<^v>^<^^>>>^<v<v',
-    '><>vv>v^v^<>><>>>><^^>vv>v<^^^>>v^v^<^^>v^^>v^<^v>v<>>v^v^<v>v^^<^^vv<',
-    '<<v<^>>^^^^>>>v^<>vvv^><v<<<>^^^vv^<vvv>^>v<^^^^v<>^>vvvv><>>v^<<^^^^^',
-    '^><^><>>><>^^<<^^v>>><^<v>^<vv>>v>>>^v><>^v><<<<v>>v<v<v>vvv>^<><<>^><',
-    '^>><>^v<><^vvv<^^<><v<<<<<><^v<<<><<<^^<v<^^^><^>>^<v^><<<^>>^v<v^v<v^',
-    '>^>>^v>vv>^<<^v<>><<><<v<<v><>v<^vv<<<>^^v^>^^>>><<^v>>v^v><^^>>^<>vv^',
-    '<><^^>^^^<><vvvvv^v<v<<>^v<v>v<<^><<><<><<<^^<<<^<<>><<><^^^>^^<>^>v<>',
-    '^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>',
-    'v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^'
-]
-/*
-text = [
-    '########',
-    '#..O.O.#',
-    '##@.O..#',
-    '#...O..#',
-    '#.#.O..#',
-    '#...O..#',
-    '#......#',
-    '########',
-    '',
-    '<^^>>>vv<v>>v<<'
-]
+let text = readLines()
 
-text = [
-    '#######',
-    '#...#.#',
-    '#.....#',
-    '#..OO@#',
-    '#..O..#',
-    '#.....#',
-    '#######',
-    '',
-    '<vv<<^^<<^^'
-]
-
-text = [
-    '#######',
-    '#...O..',
-]
-*/
-
-text = readLines()
-
-// 1463160
-// 1451040 too low
 let robot = {
     x: 0,
     y: 0
@@ -96,11 +39,6 @@ text.forEach((line, y) => {
 //Avanzar turnos
 
 for (let i = 0; i < moves.length; i++) {
-    /*
-    console.log(moves[i])
-    printTable()
-    */
-
     if (moves[i] === "<") {
         if (boxes.some((box) => box.x === robot.x - 1 && box.y === robot.y)) {
             console.error("error", moves[i])
@@ -251,96 +189,11 @@ for (let i = 0; i < moves.length; i++) {
             }
         }
     }
-    //console.log(robot, moves[i])
-    //printTableReduced()
-    printTableReduced()
-    console.log("-")
-    boxes.forEach((box) => {
-        if (boxes.some((b) => Math.abs(b.x - box.x) === 1 && b.y === box.y)) {
-            console.log(moves[i - 2], moves[i - 1], moves[i])
-
-            throw new Error
-        }
-    })
 }
-/*
-text = [
-    '####################',
-    '##[].......[].[][]##',
-    '##[]...........[].##',
-    '##[]........[][][]##',
-    '##[]......[]....[]##',
-    '##..##......[]....##',
-    '##..[]............##',
-    '##..@......[].[][]##',
-    '##......[][]..[]..##',
-    '####################'
-]
-boxes = []
-for (let y = 0; y < text.length; y++) {
-    for (let x = 0; x < text[0].length; x++) {
-        if (text[y][x] === "[") {
-            boxes.push({
-                x: x,
-                y: y
-            })
-        }
-    }
-}
-*/
 
 //Calcular puntación
 let sum = boxes.reduce((a, b) => a += b.y * 100 + b.x, 0)
 
-//console.log(boxes)
-
 printTable()
 
 console.log("Solución: ", sum)
-
-function printTableReduced() {
-    const ZOOMX = 10
-    const ZOOMY = 5
-    for (let y = robot.y - ZOOMY; y <= robot.y + ZOOMY; y++) {
-        let line = ''
-        for (let x = robot.x - ZOOMX; x <= robot.x + ZOOMX; x++) {
-            if (walls.some((wall) => wall.x === x && wall.y === y)) {
-                line += "#"
-            } else if (walls.some((wall) => wall.x === x - 1 && wall.y === y)) {
-                line += "#"
-            } else if (boxes.some((box) => box.x === x && box.y === y)) {
-                line += "["
-            } else if (boxes.some((box) => box.x === x - 1 && box.y === y)) {
-                line += "]"
-            } else if (robot.x === x && robot.y === y) {
-                line += "@"
-            } else {
-                line += "."
-            }
-        }
-        console.log(line)
-
-    }
-}
-
-function printTable() {
-    for (let y = 0; y < text.length; y++) {
-        let line = ''
-        for (let x = 0; x < text[0].length * 2; x += 0) {
-            if (walls.some((wall) => wall.x === x && wall.y === y)) {
-                line += "##"
-                x += 2
-            } else if (boxes.some((box) => box.x === x && box.y === y)) {
-                line += "[]"
-                x += 2
-            } else if (robot.x === x && robot.y === y) {
-                line += "@"
-                x++
-            } else {
-                line += "."
-                x++
-            }
-        }
-        console.log(line)
-    }
-}

@@ -40,15 +40,8 @@ text.forEach((line, y) => {
 
 for (let i = 0; i < moves.length; i++) {
     if (moves[i] === "<") {
-        if (boxes.some((box) => box.x === robot.x - 1 && box.y === robot.y)) {
-            console.error("error", moves[i])
-            //boxes.forEach((box) => { if (box.y === robot.y && box.x === robot.x - 1) { console.log(box) } })
-            //printTable()
-            throw new Error()
-        }
         if (!boxes.some((box) => box.x === robot.x - 2 && box.y === robot.y) &&
             !walls.some((wall) => wall.x === robot.x - 2 && wall.y === robot.y)) {
-
             robot.x -= 1
         } else if (boxes.some((box) => box.x === robot.x - 2 && box.y === robot.y)) {
             let stuffToMove = []
@@ -59,10 +52,8 @@ for (let i = 0; i < moves.length; i++) {
             }
 
             if (!walls.some((wall) => wall.x === checkX && wall.y === robot.y)) {
-                //console.log(boxes)
                 stuffToMove.forEach((el) => el.x--)
                 robot.x--
-                //console.log(boxes)
             }
         }
         if (boxes.some((box) => box.x === robot.x - 1 && box.y === robot.y)) {

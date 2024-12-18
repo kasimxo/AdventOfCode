@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\AdventOfCode\\js\\aoc2024\\17\\Day17_P2.js"
+            "program": "${workspaceFolder}\\AdventOfCode\\js\\aoc2024\\18\\Day18_P2.js"
         }
     ]
 }

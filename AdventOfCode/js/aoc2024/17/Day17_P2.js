@@ -1,13 +1,6 @@
 const { readLines } = require('./input')
 
-let text = [
-    'Register A: 2024',
-    'Register B: 0',
-    'Register C: 0',
-    '',
-    'Program: 0,3,5,4,3,0'
-]
-text = readLines()
+let text = readLines()
 
 let initialA = 0
 const initialB = Number.parseInt(text[1].split(':')[1])
@@ -30,18 +23,8 @@ while (!validateOutput(output.join(','))) {
     ip = 0 // Instruction pointer
     output = []
     simulateProgram()
-    //  202356708354602
-    //  105734774294938 -> TRUE???
-    //  105734774294936 -> ?
-    //  114668306016665
-    //  33400000000
-
-    if (initialA % 100000000 === 0) {
-        console.log(initialA)
-    }
 }
 
-// 105734774294936 -> TOO LOW
 console.log("End: ", initialA)
 
 function compareFull(arr) {
@@ -70,18 +53,6 @@ function validateOutput(string) {
     }
 
     return false
-    /*
-        if (string.length !== compareProgram.length) {
-            return false
-        } else {
-            for (let i = 0; i < string.length; i++) {
-                if (string[i].localeCompare(compareProgram[i]) !== 0) {
-                    return false
-                }
-            }
-        }
-        return true
-        */
 }
 
 
@@ -103,8 +74,6 @@ function simulateProgram() {
         }
     }
 }
-
-//console.log("Halt: ", output.join(','))
 
 function takevalue(op) {
     let value
@@ -151,12 +120,6 @@ function performInstruction(operation, value, literal) {
             break
         case 5:
             output.push(value % 8)
-            /*
-            if (value % 8 !== program[output.length - 1]) {
-                //console.log("Descartado: ", initialA)
-                calculating = false
-            }
-*/
             break
         case 6:
             regB = Math.trunc(regA / (Math.pow(2, value)))

@@ -1,0 +1,11 @@
+const {readLines} = require('./input')
+
+input = readLines()
+let lines = input.map(w=>w.replaceAll('L', 'Z'))
+lines.sort((a, b) => b.localeCompare(a))
+let biggest = lines[lines.length-1].replaceAll('Z', 'L')
+let row = biggest.slice(0, 7).replaceAll('B', '1').replaceAll('F', '0')
+let aisle = biggest.slice(7, biggest.lenght).replaceAll('R', '1').replaceAll('L', '0')
+let rowNum = Number.parseInt(row, 2)
+let aisleNum = Number.parseInt(aisle, 2)
+console.log(rowNum*8+aisleNum)

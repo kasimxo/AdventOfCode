@@ -1,4 +1,4 @@
-const {readLines} = require('./input')
+const {readLines} = require('./../../input')
 
 input = readLines()
 let lines = input.map(w=>w.replaceAll('L', 'Z'))

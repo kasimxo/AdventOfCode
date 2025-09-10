@@ -1,4 +1,4 @@
-const { readLines } = require('./input')
+const { readLines } = require('./../../input')
 
 /**
  * This file solves Day 23 Part 2 with Bron Kerboschl algorithm, which

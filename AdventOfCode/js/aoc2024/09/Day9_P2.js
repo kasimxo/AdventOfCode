@@ -1,4 +1,4 @@
-const { readInput } = require('./input')
+const { readInput } = require('./../../input')
 
 let text = readInput()
 let count = 0

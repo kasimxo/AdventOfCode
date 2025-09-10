@@ -1,4 +1,4 @@
-const { readLines, readLinesExample } = require('./input')
+const { readLines, readLinesExample } = require('./../../input')
 let text = readLinesExample()
 text = readLines()
 let keys = []

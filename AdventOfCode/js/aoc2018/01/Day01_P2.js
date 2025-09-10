@@ -1,4 +1,4 @@
-const {readLines} = require('./input')
+const {readLines} = require('./../../input')
 
 const input = readLines().map(n=>Number.parseInt(n))
 let frecuencies = []

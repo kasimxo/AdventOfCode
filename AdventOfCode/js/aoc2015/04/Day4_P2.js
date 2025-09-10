@@ -1,4 +1,4 @@
-const { readInput } = require('./input')
+const { readInput } = require('./../../input')
 
 // MD5(bgvyzdsv + numero decimal) => 00000
 var texto = readInput()

@@ -1,4 +1,4 @@
-const { readLines } = require('./input')
+const { readLines } = require('./../../input')
 
 let text = [
     'p=0,4 v=3,-3',

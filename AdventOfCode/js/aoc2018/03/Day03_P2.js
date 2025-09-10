@@ -1,4 +1,4 @@
-const {readLines} = require('./input')
+const {readLines} = require('./../../input')
 
 let input = [
     "#1 @ 1,3: 4x4",

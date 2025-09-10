@@ -1,4 +1,4 @@
-const { readLines, readInput } = require('./input')
+const { readLines, readInput } = require('./../../input')
 
 let text = readInput()
 /*

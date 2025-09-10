@@ -1,4 +1,4 @@
-const { readInput } = require('./input')
+const { readInput } = require('./../../input')
 
 var posicionA = { 'posX': 0, 'posY': 0 }
 var posicionB = { 'posX': 0, 'posY': 0 }

@@ -1,4 +1,4 @@
-const { readInput } = require('./input')
+const { readInput } = require('./../../input')
 
 var posicion = { 'posX': 0, 'posY': 0 }
 var casas = []

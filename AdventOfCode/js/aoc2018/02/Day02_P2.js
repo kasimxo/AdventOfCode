@@ -1,4 +1,4 @@
-const {readLines} = require('./input')
+const {readLines} = require('./../../input')
 
 let input = readLines()
 for(let i = 0; i<input.length; i++){

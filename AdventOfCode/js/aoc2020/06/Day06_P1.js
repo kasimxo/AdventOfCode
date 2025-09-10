@@ -1,4 +1,4 @@
-const {readInput} = require('./input')
+const {readInput} = require('./../../input')
 
 const groups = readInput().split('\r\n\r\n').map(w => w.replaceAll('\r\n', ' '))
 

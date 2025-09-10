@@ -1,4 +1,4 @@
-const { readInput } = require('./input')
+const { readInput } = require('./../../input')
 
 var texto = readInput()
 const json = JSON.parse(texto)

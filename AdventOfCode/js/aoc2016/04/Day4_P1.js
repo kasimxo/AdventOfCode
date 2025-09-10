@@ -1,4 +1,4 @@
-const { readLines } = require('./input')
+const { readLines } = require('./../../input')
 var texto = readLines()
 
 let num = 0 // Suma de las ids de las habitaciones válidas

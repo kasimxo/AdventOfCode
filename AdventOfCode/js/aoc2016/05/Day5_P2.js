@@ -1,4 +1,4 @@
-const { readLines } = require('./input')
+const { readLines } = require('./../../input')
 let md5 = require('js-md5');
 
 let text = 'uqwqemis'

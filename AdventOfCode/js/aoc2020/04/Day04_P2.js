@@ -1,4 +1,4 @@
-const {readInput} = require('./input')
+const {readInput} = require('./../../input')
 const passports = readInput().split('\r\n\r\n').map(p => p.replaceAll('\r\n', ' ')).map(p => {
     const splitted = p.split(' ')
     const object = {}

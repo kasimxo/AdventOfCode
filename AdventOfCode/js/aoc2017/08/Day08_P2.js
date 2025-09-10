@@ -1,4 +1,4 @@
-const {readLines} = require('./input')
+const {readLines} = require('./../../input')
 
 let registers = {}
 let input = readLines()

@@ -1,4 +1,4 @@
-const { readInput } = require('./input')
+const { readInput } = require('./../../input')
 
 //  L   W   H
 //2*l*w + 2*w*h + 2*h*l

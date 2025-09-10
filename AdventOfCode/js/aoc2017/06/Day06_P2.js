@@ -1,4 +1,4 @@
-const {readInput} = require('./input')
+const {readInput} = require('./../../input')
 let input = readInput().split('\t').map(n => Number.parseInt(n))
 const diff = new Set()
 let cycles = {}

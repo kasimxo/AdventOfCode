@@ -1,4 +1,4 @@
-const {readLines} = require('./input')
+const {readLines} = require('./../../input')
 
 let checkSum = 0
 readLines().forEach(line => {

@@ -1,4 +1,4 @@
-const { readInput, readInputRaw } = require('./input')
+const { readInput, readInputRaw } = require('./../../input')
 
 var lit = 0
 var memoria = 0

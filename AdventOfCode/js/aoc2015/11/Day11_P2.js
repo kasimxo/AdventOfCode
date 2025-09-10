@@ -1,4 +1,4 @@
-const { readInput } = require('./input')
+const { readInput } = require('./../../input')
 var texto = readInput()
 
 //Paramos de generar contraseñas cuando cumpla los criterios

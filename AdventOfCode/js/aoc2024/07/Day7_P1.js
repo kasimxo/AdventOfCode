@@ -1,4 +1,4 @@
-const { readLines } = require('./input')
+const { readLines } = require('./../../input')
 let text = [
     '190: 10 19',
     '3267: 81 40 27',

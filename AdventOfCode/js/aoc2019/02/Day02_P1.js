@@ -1,4 +1,4 @@
-const {readInput} = require('./input')
+const {readInput} = require('./../../input')
 
 const input = readInput().split(',').map(n=>Number.parseInt(n))
 input[1] = 12

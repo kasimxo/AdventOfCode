@@ -1,4 +1,4 @@
-const {readLines} = require('./input')
+const {readLines} = require('./../../input')
 // 5115309 too low
 
 let input = readLines().map(n=>Number.parseInt(n))

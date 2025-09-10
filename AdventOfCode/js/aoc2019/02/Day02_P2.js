@@ -1,4 +1,4 @@
-const {readInput} = require('./input')
+const {readInput} = require('./../../input')
 
 for(let noun = 0; noun<100; noun++){ 
     for(let verb = 0; verb<100; verb++){

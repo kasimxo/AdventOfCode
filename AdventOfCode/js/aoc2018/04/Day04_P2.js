@@ -1,4 +1,4 @@
-const {readLines} = require('./input')
+const {readLines} = require('./../../input')
 let input = [
     "[1518-11-01 00:00] Guard #10 begins shift",
     "[1518-11-01 00:05] falls asleep",

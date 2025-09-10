@@ -1,4 +1,4 @@
-const { readInput, readLines } = require('./input')
+const { readInput, readLines } = require('./../../input')
 
 let text = [
     'Button A: X+94, Y+34',

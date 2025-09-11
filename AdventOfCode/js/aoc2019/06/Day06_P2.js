@@ -8,7 +8,7 @@ while(true){
         if(replace.includes(p[0])){
             newReplace.push(p[1])
             planets[p[1]] = {
-                distance:  planets[p[0]].distance + 1,
+                distance: planets[p[0]].distance + 1,
                 parents: [...planets[p[0]].parents, p[0]]
             }
         }

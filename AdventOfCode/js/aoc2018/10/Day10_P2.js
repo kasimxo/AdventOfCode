@@ -18,14 +18,10 @@ while (calculating) {
     
     let found = CalculateLength(input.map(i=>i[0]))
     if(found){
-        input.forEach(g => {
-            g[0][0] -= g[1][0]
-            g[0][1] -= g[1][1]
-        })
-        PrintInput(input.map(i => i[0]))
         calculating = false
     }
 }
+console.log(--i)
 
 function CalculateLength(points){
     let [MIN_X, MAX_X, MIN_Y, MAX_Y] = CalculateBounds(points)
@@ -37,7 +33,6 @@ function CalculateLength(points){
     lastLen_X = len_X
     lastLen_Y = len_Y
 }
-
 function CalculateBounds(points){
     let MIN_Y = Infinity
     let MAX_Y = 0
@@ -50,19 +45,4 @@ function CalculateBounds(points){
         MAX_Y = Math.max(MAX_Y, p[1])
     })
     return [MIN_X, MAX_X, MIN_Y, MAX_Y]
-}
-
-function PrintInput(points) {
-    let [MIN_X, MAX_X, MIN_Y, MAX_Y] = CalculateBounds(points)
-    for (let y = MIN_Y; y <= MAX_Y; y++) {
-        let line = ''
-        for (let x = MIN_X; x <= MAX_X; x++) {
-            if (points.some(p => p[0] === x && p[1] === y)) {
-                line += '#'
-            } else {
-                line += '.'
-            }
-        }
-        console.log(line)
-    }
 }

@@ -19,4 +19,3 @@ input.forEach(c => {
     freeSides += possible
 })
 console.log(freeSides)
-// 12426 too high

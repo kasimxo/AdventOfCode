@@ -2,7 +2,7 @@
 
 Progress:<br/>
 
-![](https://img.shields.io/badge/Total%20⭐-272-yellow)
+![](https://img.shields.io/badge/Total%20⭐-274-yellow)
 
 Completed years:
 

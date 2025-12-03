@@ -1,4 +1,4 @@
-const { readInput } = require('./../../input')
+const { readInput } = require('../../input')
 
 let input = readInput()
 input = input.split(',').map(group=>group.split('-'))

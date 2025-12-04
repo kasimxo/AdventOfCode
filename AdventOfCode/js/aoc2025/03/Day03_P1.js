@@ -1,13 +1,6 @@
 const { readLines } = require('../../input')
 
-let input = [
-    "987654321111111",
-    "811111111111119",
-    "234234234234278",
-    "818181911112111"
-]
-
-input = readLines()
+let input = readLines()
 
 let sum = 0
 

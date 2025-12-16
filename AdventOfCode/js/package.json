@@ -10,6 +10,7 @@
     "license": "ISC",
     "description": "",
     "dependencies": {
-        "js-md5": "^0.8.3"
+        "js-md5": "^0.8.3",
+        "z3-solver": "^4.15.4"
     }
 }

@@ -1,10 +1,17 @@
 const { readLines } = require('../../input')
 const { init } = require('z3-solver')
 
+let globalZ3
+
+async function initZ3(){
+    if(!globalZ3){
+        const { Context, em } = await init();
+        globalZ3 = new Context('main');
+    }
+    return globalZ3
+}
 
 let input = readLines()
-
-
 
 let machines = []
 input.forEach(line => {
@@ -16,15 +23,17 @@ input.forEach(line => {
         joltage: joltage,
         combinations: combinations
     })
-    // este input necesita un mayor procesamiento
 })
-let sol = 0
-machines.forEach(async (machine, index) => {
-    console.log("MACHINE N:", index)
-    sol += await processMachine(machine)
-})
-
-console.log("SOLUTION: ", sol)
+calculate()
+async function calculate() {
+    let sol = 0
+    for(let i = 0; i<machines.length; i++){
+        let test = await processMachine(machines[i])
+        sol+=Number.parseInt(test)
+        console.log(sol, i)
+    }
+    console.log("SOLUCION:", sol)
+}
 
 function getLights(line) {
     let splitted = line.split(' ')
@@ -50,99 +59,79 @@ function getCombinations(line) {
                 combinationArray.push(0)
             }
         }
-        //console.log(splitted[0], combination, combinationArray)
         combinations.push(combinationArray)
     })
-    combinations.sort((a, b) => b.reduce((acc, curr) => acc += curr) - a.reduce((acc, curr) => acc += curr))
     return combinations
 }
 
 
-
 async function processMachine(machine) {
+    /**
+    Teniendo en cuenta:
+    ----        COMBINATIONS             ----    -TARGET-
+    (3) (1,3)   (2)     (2,3)   (0,2)   (0,1)   {3,5,4,7}
+    a   b       c       d       e       f       t
+    Cada letra identifica al grupo
+    
+    Por ejemplo, la letra 'a' identifica (3)
+    Dado que (3) quiere decir que suma uno a t[3],
+    podemos generalizarlo como:
+    (3) => (0, 0, 0, 1) 
+    para que todos los miembros tengan todos los sumandos
+    
+    Podemos transformarlo en el siguiente sistema de ecuaciones
+    
+        0   1   2   3 <- Posición
+    a   0   0   0   1
+    b   0   1   0   1
+    c   0   0   1   0
+    d   0   0   1   1
+    e   1   0   1   0
+    f   1   1   0   0
+    
+    Target: 
+        0   1   2   3
+    t   3   5   4   7
+    
+    Por tanto, podemos generalizar:
+    a0 + b0 + c0 + d0 + e0 + f0 = t0
+    Es decir, a * a0 + ... + f * f0 = t0
+    
+    0a + 0b + 0c + 0d + 1e + 1f = 3 <- t0
+    0a + 1b + 0c + 0d + 0e + 1f = 5 <- t1
+    0a + 0b + 1c + 1d + 1e + 0f = 4 <- t2
+    1a + 1b + 0c + 1d + 0e + 0f = 7 <- t3
+    Queremos minimizar la suma de a + b + c + d + e + f
+    Y todos ellos tienen que ser positivos
+    */
+
     let combinations = machine.combinations
     let target = machine.joltage
-    console.log(combinations)
-    console.log(target)
 
-    const { Context, em } = await init();
-    const Z3 = new Context('main');
-
-/**
-(3) (1,3)   (2)     (2,3)   (0,2)   (0,1)   {3,5,4,7}
-a   b       c       d       e       f
-e + f = 3
-b + f = 5
-c + d + e = 4
-a + b + d = 7
-Queremos minimizar la suma de a + b + c + d + e + f
-Todos ellos tienen que ser positivos
-*/
-
-/**
-Teniendo en cuenta:
-----        COMBINATIONS             ----    -TARGET-
-(3) (1,3)   (2)     (2,3)   (0,2)   (0,1)   {3,5,4,7}
-a   b       c       d       e       f       t
-Cada letra identifica al grupo
-
-Por ejemplo, la letra 'a' identifica (3)
-Dado que (3) quiere decir que suma uno a t[3],
-podemos generalizarlo como:
-(3) => (0, 0, 0, 1) 
-para que todos los miembros tengan todos los sumandos
-
-Podemos transformarlo en el siguiente sistema de ecuaciones
-
-    0   1   2   3 <- Posición
-a   0   0   0   1
-b   0   1   0   1
-c   0   0   1   0
-d   0   0   1   1
-e   1   0   1   0
-f   1   1   0   0
-
-Target: 
-    0   1   2   3
-t   3   5   4   7
-
-Por tanto, podemos generalizar:
-a0 + b0 + c0 + d0 + e0 + f0 = t0
-Es decir, a * a0 + ... + f * f0 = t0
-
-0a + 0b + 0c + 0d + 1e + 1f = 3 <- t0
-0a + 1b + 0c + 0d + 0e + 1f = 5 <- t1
-0a + 0b + 1c + 1d + 1e + 0f = 4 <- t2
-1a + 1b + 0c + 1d + 0e + 0f = 7 <- t3
-Queremos minimizar la suma de a + b + c + d + e + f
-Y todos ellos tienen que ser positivos
-*/
+    let Z3 = await initZ3()
     const solver = new Z3.Optimize();
 
-    // Variables (a..f)
-    const a = Z3.Int.const("a");
-    const b = Z3.Int.const("b");
-    const c = Z3.Int.const("c");
-    const d = Z3.Int.const("d");
-    const e = Z3.Int.const("e");
-    const f = Z3.Int.const("f");
+    let variables = [] // a, b, c, d, e, f
 
-    const vars = [a, b, c, d, e, f];
+    combinations.forEach((combination, index) => {
+        let variable = Z3.Int.const(`x_${index}`)
+        variables.push(variable)
+        solver.add(variable.ge(0))
+    })
 
-    // Restricción: todas no negativas
-    vars.forEach(v => solver.add(v.ge(0)));
-
-    // Sistema de ecuaciones (tu matriz)
-    solver.add(e.add(f).eq(3));           // t0
-    solver.add(b.add(f).eq(5));           // t1
-    solver.add(c.add(d).add(e).eq(4));    // t2
-    solver.add(a.add(b).add(d).eq(7));    // t3
-
-    // Función objetivo: minimizar suma
-    const presses = Z3.Sum(a, b, c, d, e, f);
+    for(let i = 0; i<target.length; i++){
+        let expr = Z3.Int.val(0)
+        let t = target[i]
+        for(let j = 0; j<variables.length; j++){
+            if(combinations[j][i] !== 0){
+                expr = expr.add(variables[j].mul(combinations[j][i]))
+            }
+        }
+        solver.add(expr.eq(t))
+    }
+    
+    const presses = Z3.Sum(...variables);
     solver.minimize(presses);
-
-    // Resolver
     const result = await solver.check();
 
     if (result !== "sat") {
@@ -150,17 +139,7 @@ Y todos ellos tienen que ser positivos
         return;
     }
 
-    // Leer el modelo
     const model = solver.model();
-
-    console.log("Solución óptima:");
-    console.log("a =", model.eval(a).toString());
-    console.log("b =", model.eval(b).toString());
-    console.log("c =", model.eval(c).toString());
-    console.log("d =", model.eval(d).toString());
-    console.log("e =", model.eval(e).toString());
-    console.log("f =", model.eval(f).toString());
-    console.log("Suma mínima =", model.eval(presses).toString());
-    
-    return 0
+    let minSum = model.eval(presses).toString()
+    return minSum
 }
